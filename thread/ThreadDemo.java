@@ -5,12 +5,12 @@ public class ThreadDemo {
     public static class Demo extends  Thread{
         public void run(){
             while(true){
-                System.out.println("I am alive"+Thread.currentThread());
+                System.out.println("I am alive "+this.getId());
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
 //                    e.printStackTrace();
-                    System.out.println("这里收到中断 结束掉线程");
+                    System.out.println(this.getId()+" 这里收到中断 结束掉线程");
                     break;
                 }
             }
@@ -25,7 +25,7 @@ public class ThreadDemo {
         t1.setPriority(Thread.MIN_PRIORITY);
         t1.start();
         t.start();
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         t.interrupt();
     }
 }
