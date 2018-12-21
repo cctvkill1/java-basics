@@ -1,6 +1,6 @@
 package basics.atomic;
 
-import org.apache.log4j.Logger;
+// import org.apache.log4j.Logger;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
