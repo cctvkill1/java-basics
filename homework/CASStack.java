@@ -38,7 +38,7 @@ public class CASStack {
                 // 自增cas操作
                 int data = j.incrementAndGet();
                 if (arr[i].compareAndSet(null, data))
-                    System.out.println("index:" + i + "  data:" + data);
+                System.out.println("插入[" + i + "]value:" + data );
                 else {
                     System.out.println("插入失败data:" + data);
                     readd(data);
@@ -56,7 +56,7 @@ public class CASStack {
                 if (index.compareAndSet(i, i + 1)) {
                     if (arr[i].compareAndSet(null, data)) {
                         flag = false;
-                        System.out.println("index:" + i + "data:" + data + "重新插入成功！！！！");
+                        System.out.println("插入[" + i + "]value:" + data + "重新插入成功！！！！");
                     }
                 }
             }
@@ -76,17 +76,17 @@ public class CASStack {
                 }
             }
         }
-        System.out.println("这里是出栈失败了"+i);
+        // System.out.println("这里是出栈失败了"+i);
     }
 
     public static void main(String[] args) throws Exception {
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             new Thread(() -> {
                 while (true) {
 
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
