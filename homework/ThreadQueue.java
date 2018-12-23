@@ -1,4 +1,4 @@
-package cctv.homework;
+package basics.homework;
 
 import java.util.LinkedList;
 import java.util.List;
