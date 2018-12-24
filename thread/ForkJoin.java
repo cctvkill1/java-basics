@@ -14,7 +14,7 @@ import java.util.concurrent.RecursiveTask;
  * */
 public  class ForkJoin extends RecursiveTask<Long>{
 
-        private static final  int THRESHOLD = 100000;
+        private static final  int THRESHOLD = 100;
         private long start;
         private long end;
         public ForkJoin(long start ,long end){
@@ -27,11 +27,12 @@ public  class ForkJoin extends RecursiveTask<Long>{
         public Long compute(){
             long sum = 0;
             if( (end -start)< THRESHOLD){
+                // 小于阈值的任务个数直接计算
                 for (long i =start;i<=end;i++){
                     sum+=i;
                 }
             }else{
-                //分成100个小任务 分而治之
+                //分成100个小任务（递归拆分） 分而治之
                 long step = (start+end)/100;
                 ArrayList<ForkJoin> subTasks = new ArrayList<ForkJoin>();
                 long pos = start;
@@ -59,7 +60,7 @@ public  class ForkJoin extends RecursiveTask<Long>{
 
         long startTime = System.currentTimeMillis();
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        ForkJoin task = new ForkJoin(0,20000L);
+        ForkJoin task = new ForkJoin(0,2000L);
         ForkJoinTask<Long> result = forkJoinPool.submit(task);
         try{
             long res = result.get();
