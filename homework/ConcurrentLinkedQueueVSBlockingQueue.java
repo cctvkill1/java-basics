@@ -41,7 +41,7 @@ public class ConcurrentLinkedQueueVSBlockingQueue {
     private static ConcurrentLinkedQueue concurrentLinkedQueue = new ConcurrentLinkedQueue();
     private static LinkedBlockingQueue linkedBlockingQueue = new LinkedBlockingQueue();
     private static final int count = 1000000;
-/* 
+/*
 
     count = 1000000 时候
     concurrentLinkedQueue 耗时: 426ms

@@ -4,7 +4,9 @@ package basics.homework;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
-
+/**
+ * 测试队列性能性能 ConcurrentLinkedQueueVSBlockingQueue里调用
+* */
 public abstract class TestPerformance {
     protected String id;
     protected CyclicBarrier barrier;
