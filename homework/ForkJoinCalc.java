@@ -11,7 +11,7 @@ import java.util.concurrent.RecursiveTask;
  * 可以查看https://www.2cto.com/kf/201611/568223.html 里面有个图 一眼就明白题意了 我擦 题目真难啊
  * 可利用定积分求曲边梯形面积 但是完全不会定积分- - 那就当三角形吧 简单点 首先是1~100 步长是0.01 那么就是计算10000次
  * 每次是个矩形加三角形的面积 矩形是 0.01*y2 其中 y2=1/x2 三角形是 (y1-y2)*0.01/2 循环1W次 求和 so easy
- * 敲代码的时候遇到几个问题 1. pos >end 2.(end - start + 1) 记得加1
+ * 敲代码的时候遇到几个问题 1. pos >end 2.(end - start) 不加1 结果是4.33088  加1会算到101了结果是4.6164217错误
  */
 public class ForkJoinCalc extends RecursiveTask<Float> {
 
@@ -38,16 +38,18 @@ public class ForkJoinCalc extends RecursiveTask<Float> {
         float sum = 0;
         // 判断是否是拆分完毕
         if ((end - start) < THRESHOLD) {
-            System.out.println("子任务开始了start:" + start + " end:" + end + "  total:" + (end - start + 1) / STEP);
-            for (int i = 0; i <= (end - start + 1) / STEP; i++) {
+            System.out.println("子任务开始了start:" + start + " end:" + end + "  total:" + (end - start) / STEP);
+            for (int i = 0; i < (end - start) / STEP; i++) {
                 // 计算面积
-                float x1 = start + i * STEP;
-                float x2 = x1 + STEP;
+                int intX1 = (int) ((start + i * STEP) * 100);
+                int intX2 = (int) (intX1 + STEP * 100);
+                float x1 = (float) intX1 / 100;
+                float x2 = (float) intX2 / 100;
                 float y1 = 1 / x1;
                 float y2 = 1 / x2;
                 float area = (float) (0.01 * y2 + (y1 - y2) * 0.01 / 2);
                 // 注意精度丢失问题 导致x1 x2会打印出0.99999的问题
-                System.out.println(String.format("x1:%f x2:%f area:%f", x1,x2, area));
+                System.out.println(String.format("x1:%f x2:%f area:%f", x1, x2, area));
                 sum += area;
             }
         } else {
